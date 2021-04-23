@@ -32,8 +32,10 @@ class TestExample: XCTestCase {
         medicalBackend.register(patient: patient, with: doctor)
 
         let script = medicalBackend.issueScript(
-            label: Script.Label(drugID: UUID(), quantity: .grams(2), repetition: 4),
-            for: patient,
+            forDrug: Drug.fixture(minimumAge: 21),
+            quantity: .grams(2),
+            repetition: 4,
+            to: patient,
             from: doctor
         )
 
@@ -54,8 +56,10 @@ class TestExample: XCTestCase {
         medicalBackend.register(patient: patient, with: doctor)
 
         let script = medicalBackend.issueScript(
-            label: Script.Label(drugID: UUID(), quantity: .grams(2), repetition: 4),
-            for: patient,
+            forDrug: Drug.fixture(minimumAge: 21),
+            quantity: .grams(2),
+            repetition: 4,
+            to: patient,
             from: doctor
         )
 
@@ -67,8 +71,10 @@ class TestExample: XCTestCase {
         let (medicalBackend, doctor, patient) = ScenarioBuilder().withPatientAge(10).build()
 
         let script = medicalBackend.issueScript(
-            label: Script.Label(drugID: UUID(), quantity: .grams(2), repetition: 4),
-            for: patient,
+            forDrug: Drug.fixture(minimumAge: 21),
+            quantity: .grams(2),
+            repetition: 4,
+            to: patient,
             from: doctor
         )
 

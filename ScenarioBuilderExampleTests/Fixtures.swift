@@ -43,3 +43,19 @@ extension Address {
     }
 }
 
+extension Drug {
+
+    static func fixture(
+        name: String = "a drug",
+        activeIngredients: [Ingredient] = [.someName, .someOtherName],
+        minimumAge: Int = 21,
+        usageRecommendation: String = ""
+    ) -> Drug {
+        return Drug(
+            name: name,
+            activeIngredients: activeIngredients,
+            minimumAge: minimumAge,
+            usageRecommendation: usageRecommendation
+        )
+    }
+}

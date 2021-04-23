@@ -28,8 +28,10 @@ class MedicalBackend {
     }
 
     func issueScript(
-        label: Script.Label,
-        for patient: Patient,
+        forDrug drug: Drug,
+        quantity: Quantity,
+        repetition: Int,
+        to patiente: Patient,
         from doctor: Doctor
     ) -> Result<Script, MedicalBackendError> {
         // FIXME: imagine real logic
@@ -64,11 +66,6 @@ class Doctor {
     func registerPatient(_ patient: Patient) {
         patients.append(patient)
     }
-
-    func writeScript(label: Script.Label, for patient: Patient) -> Result<Script, MedicalBackendError> {
-        // TODO: imagine real logic
-        return .failure(MedicalBackendError.illegalDrug)
-    }
 }
 
 struct Patient {
@@ -77,15 +74,22 @@ struct Patient {
     let address: Address
 }
 
+struct Drug {
+    let name: String
+    let activeIngredients: [Ingredient]
+    let minimumAge: Int
+    let usageRecommendation: String
+}
+
+enum Ingredient {
+    case someName
+    case someOtherName
+}
+
 struct Script {
-
-    struct Label {
-        let drugID: UUID
-        let quantity: Quantity
-        let repetition: Int
-    }
-
-    let label: Label
+    let drug: Drug
+    let quantity: Quantity
+    let repetition: Int
     let patient: Patient
 }
 
