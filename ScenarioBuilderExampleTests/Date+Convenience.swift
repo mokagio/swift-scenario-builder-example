@@ -3,6 +3,6 @@ import Foundation
 extension Date {
 
     init(year: Int, month: Int, day: Int) {
-        self = DateComponents(year: year, month: month, day: day).date!
+        self = DateComponents(calendar: .current, year: year, month: month, day: day).date!
     }
 }
