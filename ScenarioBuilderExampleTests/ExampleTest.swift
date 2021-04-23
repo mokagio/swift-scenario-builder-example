@@ -64,7 +64,7 @@ class TestExample: XCTestCase {
     }
 
     func testExampleWithScenarioBuilder() {
-        let (medicalBackend, doctor, patient) = ScenarioBuilder().withPatientAge(age: 10).build()
+        let (medicalBackend, doctor, patient) = ScenarioBuilder().withPatientAge(10).build()
 
         let script = medicalBackend.issueScript(
             label: Script.Label(drugID: UUID(), quantity: .grams(2), repetition: 4),

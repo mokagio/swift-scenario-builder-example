@@ -2,24 +2,15 @@
 
 struct ScenarioBuilder {
 
-    // FIXME: Use reasonable defaults here
-    private var date: Date = Date()
-    private var patientDOB: Date = Date() // this would have to be something like 21 years ago
+    private var patientAge: Int = 30
 
-    func withDate(year: Int, month: Int = 1, day: Int = 1) -> ScenarioBuilder {
-        var newScenarioBuilder = self
-        newScenarioBuilder.date = date
-        return newScenarioBuilder
+    func withPatientAge(_ age: Int) -> ScenarioBuilder {
+        var newBuilder = self
+        newBuilder.patientAge = age
+        return newBuilder
     }
 
-    func withPatientAge(age: Int) -> ScenarioBuilder {
-        var newScenarioBuilder = self
-        // TODO: Calculate date of birth
-        newScenarioBuilder.patientDOB = Date()
-        return newScenarioBuilder
-    }
-
-    func build() -> (MedicalBackend, Doctor, Patient) {
+    func build(referenceDate: Date = Date()) -> (MedicalBackend, Doctor, Patient) {
         let medicalBackend = MedicalBackend(
             name: "a name",
             registrationID: "ABC123",
@@ -30,7 +21,8 @@ struct ScenarioBuilder {
 
         medicalBackend.employ(doctor: doctor)
 
-        let patient = Patient.fixture(dateOfBirth: patientDOB)
+        let dob = Calendar.current.date(byAdding: .year, value: patientAge, to: referenceDate)!
+        let patient = Patient.fixture(dateOfBirth: dob)
 
         medicalBackend.onboard(patient: patient)
         medicalBackend.register(patient: patient, with: doctor)
@@ -38,5 +30,3 @@ struct ScenarioBuilder {
         return (medicalBackend, doctor, patient)
     }
 }
-
-
